@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, createNewUserService, deleteUserService, } from '../../services/userService';
+import { getAllUsers, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
-
+import ModalEditUser from './ModalEditUser';
+import { emitter } from '../../utils/emitter';
 class UserManage extends Component {
 
 
@@ -13,6 +14,8 @@ class UserManage extends Component {
         this.state = {
             arrUsers: [],
             isOpenModalUser: false,
+            isOpenModalEditUser: false,
+            userEdit: {}
         }
     }
     async componentDidMount() {
@@ -40,6 +43,12 @@ class UserManage extends Component {
         })
     }
 
+    toggleUserEditModal = () => {
+        this.setState({
+            isOpenModalEditUser: !this.state.isOpenModalEditUser
+        })
+    }
+
     createNewUser = async (data) => {
         try {
             let response = await createNewUserService(data);
@@ -50,6 +59,7 @@ class UserManage extends Component {
                 this.setState({
                     isOpenModalUser: false
                 })
+                emitter.emit('EVENT_CLEAR_MDOAL_DATA', { 'id': "your id" })
             }
             console.log('respone create user ', response)
         } catch (e) {
@@ -72,14 +82,36 @@ class UserManage extends Component {
         }
     }
 
+    handleEditUser = async (user) => {
+        console.log('check update', user);
+        this.setState({
+            isOpenModalEditUser: true,
+            userEdit: user
+        })
+    }
 
+    doEditUser = async (user) => {
+        try {
+            let res = await editUserService(user);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    isOpenModalEditUser: false
+                })
+                await this.getAllUsersFromReact()
+            } else {
+                alert(res.errCode)
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     listenToEmitter() {
         const EventEmitter = require('events');
 
         // Create an instance of EventEmitter
         const emitter = new EventEmitter();
-        emitter.on('EVEN_CLEAR_MODAL_DATA', () => {
+        emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
             this.resetFormAddNewUser();
         })
     }
@@ -95,8 +127,16 @@ class UserManage extends Component {
                     createNewUser={this.createNewUser}
 
                 />
+                {this.state.isOpenModalEditUser &&
+                    <ModalEditUser
+                        isOpen={this.state.isOpenModalEditUser}
+                        toggleFromParent={this.toggleUserEditModal}
+                        currentUser={this.state.userEdit}
+                        editUser={this.doEditUser}
+                    />
+                }
                 <div className='title text-center'>
-                    Manage with Apo
+                    Manage with Apocalypse
                 </div>
                 <div className='mx-1'>
                     <button
@@ -121,7 +161,10 @@ class UserManage extends Component {
                                     <td>{item.lastName} </td>
                                     <td>{item.address} </td>
                                     <td>
-                                        <button className='btn-edit'><i class="fas fa-pencil-alt"></i></button>
+                                        <button
+                                            className='btn-edit'
+                                            onClick={() => this.handleEditUser(item)}
+                                        ><i class="fas fa-pencil-alt"></i></button>
                                         <button
                                             className='btn-delete'
                                             onClick={() => this.handleDeleteUser(item)}
