@@ -48,7 +48,6 @@ class ModalEditUser extends Component {
         this.setState({
             ...copyState
         }, () => {
-            console.log('check', this.state)
 
         })
     }
@@ -72,7 +71,6 @@ class ModalEditUser extends Component {
         if (isValid === true) {
             // call api edit user mdodal
             this.props.editUser(this.state);
-            console.log(this.state)
         }
     }
 

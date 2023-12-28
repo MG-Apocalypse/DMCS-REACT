@@ -1,0 +1,93 @@
+.section-specialty {
+    height: 300px;
+    margin: 0 100px;
+    margin-top: 50px;
+
+    .specialty-container {
+        margin-left: 5px;
+        display: flex;
+        flex-direction: column;
+
+        .specialty-header {
+            height: 60px;
+
+            .title-section {
+                font-size: 22px;
+                font-weight: 600;
+            }
+
+            .btn-section {
+                float: right;
+                padding: 10px 15px;
+                border: none;
+                outline: none;
+                display: block;
+                background: #ebebeb;
+                color: black;
+                cursor: pointer;
+                text-transform: uppercase;
+
+                &:hover {
+                    color: #fff;
+                    background: #f7d800;
+                }
+            }
+        }
+
+        .specialty-body {
+
+            .title-room {
+                text-align: center;
+                font-size: large;
+                width: 400px;
+            }
+
+            .specialty-customize {
+
+                .room-image {
+                    width: 400px;
+                    height: 200px;
+                    // background: url(../../../assets/Specialty/2.jpg);
+                    background-color: #eee;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: cover;
+                }
+            }
+
+            .slick-next {
+                right: -20px !important;
+                height: 48px !important;
+                width: 44px !important;
+                background: #fff !important;
+                border: 2px solid #d7d7d7 !important;
+
+                &:hover {
+                    background: #d7d7d7 !important;
+                }
+            }
+
+
+
+            .slick-prev {
+                // position: relative !important;
+                left: -20px !important;
+                z-index: 1000 !important;
+                height: 48px !important;
+                width: 44px !important;
+                background: #fff !important;
+                border: 2px solid #d7d7d7 !important;
+
+                &:hover {
+                    background: #d7d7d7 !important;
+                }
+            }
+
+            .slick-prev:before,
+            .slick-next:before {
+                font-family: 'FontAwesome' !important;
+                color: black !important
+            }
+        }
+    }
+}

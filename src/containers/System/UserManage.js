@@ -61,15 +61,12 @@ class UserManage extends Component {
                 })
                 emitter.emit('EVENT_CLEAR_MDOAL_DATA', { 'id': "your id" })
             }
-            console.log('respone create user ', response)
         } catch (e) {
             console.log(e)
         }
-        console.log('check data from child: ', data)
     }
 
     handleDeleteUser = async (user) => {
-        console.log('check delete', user)
         try {
             let res = await deleteUserService(user.id);
             if (res && res.errCode === 0) {
@@ -83,7 +80,6 @@ class UserManage extends Component {
     }
 
     handleEditUser = async (user) => {
-        console.log('check update', user);
         this.setState({
             isOpenModalEditUser: true,
             userEdit: user

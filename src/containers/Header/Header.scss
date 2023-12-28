@@ -23,4 +23,12 @@
             font-size: $base-size + 1px;
         }
     }
+
+    .welcome {
+        margin-right: 40px;
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        font-size: 18px;
+    }
 }

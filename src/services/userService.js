@@ -26,10 +26,25 @@ const editUserService = (inputData) => {
     return axios.put('/api/edit-user', inputData)
 }
 
+const getAllCodeService = (inputType) => {
+    return axios.get(`/api/allcode?type=${inputType}`)
+}
+
+const getRoomStudentService = (limit) => {
+    return axios.get(`/api/room-student?limit=${limit}`)
+}
+
+const getAllRooms = () => {
+    return axios.get(`/api/get-all-rooms`)
+}
+
 export {
     handleLoginApi,
     getAllUsers,
     createNewUserService,
     deleteUserService,
-    editUserService
+    editUserService,
+    getAllCodeService,
+    getRoomStudentService,
+    getAllRooms
 };

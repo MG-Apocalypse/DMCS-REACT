@@ -1,33 +1,96 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    isLoggedIn: false,
-    adminInfo: null
+    isLoadingGender: false,
+    genders: [],
+    roles: [],
+    positions: [],
+    users: [],
+    roomStudent: [],
+    allRooms: [],
 }
 
-const appReducer = (state = initialState, action) => {
+const adminReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ADMIN_LOGIN_SUCCESS:
+        case actionTypes.FETCH_GENDER_START:
+            let copyState = { ...state };
+            copyState.isLoadingGender = true;
             return {
-                ...state,
-                isLoggedIn: true,
-                adminInfo: action.adminInfo
+                ...state
             }
-        case actionTypes.ADMIN_LOGIN_FAIL:
+
+        case actionTypes.FETCH_GENDER_SUCCESS:
+            state.genders = action.data;
+            state.isLoadingGender = false;
+
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
+                ...state
             }
-        case actionTypes.PROCESS_LOGOUT:
+        case actionTypes.FETCH_GENDER_FAILED:
+            state.isLoadingGender = false;
+            state.genders = [];
+
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
+                ...state
+            }
+
+        case actionTypes.FETCH_POSITION_SUCCESS:
+            state.positions = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_POSITION_FAILED:
+            state.positions = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ROLE_SUCCESS:
+            state.roles = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ROLE_FAILED:
+            state.roles = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_USER_SUCCESS:
+            state.users = action.users;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_USER_FAILED:
+            state.users = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ROOMS_STUDENT_SUCCESS:
+            state.roomStudent = action.dataRoom;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ROOMS_STUDENT_FAILED:
+            state.roomStudent = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALL_ROOMS_SUCCESS:
+            state.allRooms = action.dataRo;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALL_ROOMS_FAILED:
+            state.allRooms = [];
+            return {
+                ...state
             }
         default:
             return state;
     }
 }
 
-export default appReducer;
+export default adminReducer;

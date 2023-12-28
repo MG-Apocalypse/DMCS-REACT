@@ -4,7 +4,6 @@ import './HomeHeader.scss'
 import {
     Link, NavLink
 } from "react-router-dom";
-
 class HomeHeader extends Component {
 
     render() {
@@ -15,24 +14,46 @@ class HomeHeader extends Component {
             <React.Fragment>
                 <div className='home-header-container'>
                     <div className='home-header-content'>
+                        <div className='left-content'>
+                            <div className='logo'></div>
+                        </div>
+                        <div className='right-content'></div>
                         <div className="topnav">
-                            <NavLink to="/" activeClassName="active" exact={true}>
-                                Home
-                            </NavLink>
-                            <NavLink to="/todo" activeClassName="active">
-                                Todos
-                            </NavLink>
-                            <NavLink to="/about" activeClassName="active">
-                                About
-                            </NavLink>
                             <NavLink to="/user" activeClassName="active">
-                                User
+                                <h1>Thông tin</h1>
+                            </NavLink>
+
+                            <NavLink to="/about" activeClassName="active">
+                                <h1>Liên Hệ</h1>
+                            </NavLink>
+                            <NavLink to="/roomlist" activeClassName="active">
+                                <h1>Đặt Phòng</h1>
+                            </NavLink>
+
+                            <NavLink to="/home" activeClassName="active" exact={true}>
+                                <h1>Trang Chủ</h1>
                             </NavLink>
                         </div>
                     </div>
                 </div>
                 <div className='home-header-banner'>
-                    <div></div>
+                    <div className='content-up'>
+                        <div className='title1'>
+                            NỀN TẢNG CUNG CẤP
+                        </div>
+                        <div className='title2'>
+                            CHỖ Ở TỐT NHẤT CHO SINH VIÊN
+                        </div>
+                        <div className='search'>
+                            <i className='fas fa-search'></i>
+                            <input
+                                type='text'
+                                placeholder='Hãy tìm phòng phù hợp với bạn...'
+                            ></input>
+                        </div>
+                    </div>
+
+
                 </div>
             </React.Fragment>
         );

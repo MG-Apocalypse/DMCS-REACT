@@ -1,6 +1,8 @@
 export const path = {
     HOME: '/',
     HOMEPAGE: '/home',
+    ROOMLIST: '/roomlist',
+    ROOMINFO: '/roominfo/:id',
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system'
@@ -11,10 +13,11 @@ export const languages = {
     EN: 'en'
 };
 
-export const manageActions = {
-    ADD: "ADD",
+export const CRUD_ACTIONS = {
+    CREATE: "CREATE",
     EDIT: "EDIT",
-    DELETE: "DELETE"
+    DELETE: "DELETE",
+    READ: "READ"
 };
 
 export const dateFormat = {
