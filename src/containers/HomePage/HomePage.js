@@ -12,7 +12,7 @@ class HomePage extends Component {
 
         return (
             <div className='main'>
-                <HomeHeader />
+                <HomeHeader isShowBanner={true} />
                 <Specialty />
                 <About />
                 <HomeFooter />

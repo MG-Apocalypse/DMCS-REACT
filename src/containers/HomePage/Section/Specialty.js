@@ -5,7 +5,7 @@ import * as actions from "../../../store/actions"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { withRouter } from "react-router"
 class Specialty extends Component {
     constructor(props) {
         super(props)
@@ -24,6 +24,11 @@ class Specialty extends Component {
 
     componentDidMount() {
         this.props.loadRoomStudent();
+    }
+
+    handleViewDetailRoom = (room) => {
+        console.log(`check room`, room)
+        this.props.history.push(`/detail-room/${room.id}`)
     }
 
     render() {
@@ -57,7 +62,7 @@ class Specialty extends Component {
                                         imageBase64 = new Buffer(item.image, 'base64').toString('binary')
                                     }
                                     return (
-                                        <div className='specialty-customize' key={index}>
+                                        <div className='specialty-customize' key={index} onClick={() => this.handleViewDetailRoom(item)}>
                                             <div className='room-image'
                                                 style={{ backgroundImage: `url(${imageBase64})` }}>
                                             </div>
@@ -92,4 +97,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty));

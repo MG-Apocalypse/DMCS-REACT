@@ -38,6 +38,14 @@ const getAllRooms = () => {
     return axios.get(`/api/get-all-rooms`)
 }
 
+const saveDetailRoomService = (data) => {
+    return axios.post('/api/save-infor-rooms', data)
+
+}
+
+const getDetailInforRoom = (inputId) => {
+    return axios.get(`/api/get-detail-room-by-id?id=${inputId}`)
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -46,5 +54,7 @@ export {
     editUserService,
     getAllCodeService,
     getRoomStudentService,
-    getAllRooms
+    getAllRooms,
+    saveDetailRoomService,
+    getDetailInforRoom,
 };

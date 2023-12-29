@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
-import DetailRoom from './Room/DetailRoom.js';
+import DetailRoom from './Student/Room/DetailRoom.js';
 
 
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
@@ -55,7 +55,9 @@ class App extends Component {
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.ROOMLIST} component={RoomList} />
-                                    <Route path="/roominfo/:id" component={RoomInfo} />
+                                    {/* <Route path="/roominfo/:id" component={RoomInfo} /> */}
+                                    <Route path={path.DETAIL_ROOM} component={DetailRoom} />
+
                                 </Switch>
                             </CustomScrollbars>
                         </div>

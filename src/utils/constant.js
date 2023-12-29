@@ -5,7 +5,8 @@ export const path = {
     ROOMINFO: '/roominfo/:id',
     LOGIN: '/login',
     LOG_OUT: '/logout',
-    SYSTEM: '/system'
+    SYSTEM: '/system',
+    DETAIL_ROOM: '/detail-room/:id'
 };
 
 export const languages = {

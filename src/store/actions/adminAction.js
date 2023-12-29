@@ -6,7 +6,8 @@ import {
     deleteUserService,
     editUserService,
     getRoomStudentService,
-    getAllRooms
+    getAllRooms,
+    saveDetailRoomService
 } from "../../services/userService";
 import { toast } from "react-toastify"
 
@@ -249,6 +250,32 @@ export const fetchAllRooms = () => {
             console.log('FETCH_ALL_ROOMS_FAILED: ', e)
             dispatch({
                 type: actionTypes.FETCH_ALL_ROOMS_FAILED,
+            })
+        }
+    }
+}
+
+export const saveDetailRoom = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await saveDetailRoomService(data)
+            if (res && res.errCode === 0) {
+                toast.success("Save infor detail room succeed!")
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_ROOM_SUCCESS,
+                    dataRo: res.data
+                })
+            } else {
+                toast.error("Save infor detail room error!")
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_ROOM_FAILED,
+                })
+            }
+        } catch (e) {
+            toast.error("Save infor detail room error!")
+            console.log('SAVE_DETAIL_ROOM_FAILED: ', e)
+            dispatch({
+                type: actionTypes.SAVE_DETAIL_ROOM_FAILED,
             })
         }
     }

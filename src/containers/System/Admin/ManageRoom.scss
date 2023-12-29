@@ -39,6 +39,22 @@
         }
     }
 
+    .create-content-room{
+        margin-top: 20px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        padding: 10px;
+        background: rgb(11, 93, 216);
+        cursor: pointer;
+        color: white;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
     label {
         margin-bottom: 5px;
     }

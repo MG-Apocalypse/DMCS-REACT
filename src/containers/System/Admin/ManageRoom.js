@@ -7,7 +7,8 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
-
+import { getDetailInforRoom } from "../../../services/userService"
+import { CRUD_ACTIONS } from '../../../utils/constant';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 
@@ -22,6 +23,7 @@ class ManageRoom extends Component {
             selectedRoom: '',
             description: '',
             listRooms: [],
+            hasOldData: false,
         }
     }
 
@@ -34,7 +36,8 @@ class ManageRoom extends Component {
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {};
-                object.label = item.firstName;
+                let labelName = `${item.firstName}`
+                object.label = labelName;
                 object.value = item.id;
                 result.push(object)
             })
@@ -60,12 +63,38 @@ class ManageRoom extends Component {
     }
 
     handleSaveContentMarkdown = () => {
+        let { hasOldData } = this.state;
+        this.props.saveDetailRoom({
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown,
+            description: this.state.description,
+            roomId: this.state.selectedRoom.value,
+            action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
+        })
         console.log('check state: ', this.state)
     }
 
-    handleChange = (selectedRoom) => {
+    handleChangeSelect = async (selectedRoom) => {
         this.setState({ selectedRoom });
-        // console.log(`Option selected:`, selectedRoom)
+
+        let res = await getDetailInforRoom(selectedRoom.value);
+        if (res && res.errCode === 0 && res.data.Markdown) {
+            let markdown = res.data.Markdown;
+            this.setState({
+                contentHTML: markdown.contentHTML,
+                contentMarkdown: markdown.contentMarkdown,
+                description: markdown.description,
+                hasOldData: true,
+            })
+        } else {
+            this.setState({
+                contentHTML: '',
+                contentMarkdown: '',
+                description: '',
+                hasOldData: false,
+            })
+        }
+        console.log(`check res:`, res)
 
     };
 
@@ -76,6 +105,7 @@ class ManageRoom extends Component {
 
     }
     render() {
+        let { hasOldData } = this.state
         return (
             <div className='manage-room-container'>
                 <div className='manage-room-title'>
@@ -86,7 +116,7 @@ class ManageRoom extends Component {
                         <label>Choose Room</label>
                         <Select
                             value={this.state.selectedRoom}
-                            onChange={this.handleChange}
+                            onChange={this.handleChangeSelect}
                             options={this.state.listRooms}
                         />
                     </div>
@@ -106,13 +136,16 @@ class ManageRoom extends Component {
                         style={{ height: '500px' }}
                         renderHTML={text => mdParser.render(text)}
                         onChange={this.handleEditorChange}
+                        value={this.state.contentMarkdown}
                     />
                 </div>
                 <button
-                    className='save-content-room'
+                    className={hasOldData === true ? 'save-content-room' : 'create-content-room'}
                     onClick={() => this.handleSaveContentMarkdown()}
                 >
-                    Save information
+                    {hasOldData === true ?
+                        <span>Save information</span> : <span>Create information</span>
+                    }
                 </button>
             </div>
         );
@@ -128,7 +161,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllRooms: (id) => dispatch(actions.fetchAllRooms(id))
+        fetchAllRooms: (id) => dispatch(actions.fetchAllRooms()),
+        saveDetailRoom: (data) => dispatch(actions.saveDetailRoom(data))
     };
 };
 
