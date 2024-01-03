@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import * as actions from "../../../store/actions/"
-import './ManageRoom.scss';
+import * as actions from "../../../store/actions"
+import './ManageEmployer.scss';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
-import { getDetailInforRoom } from "../../../services/userService"
+import { getDetailInforEmployer } from "../../../services/userService"
 import { CRUD_ACTIONS } from '../../../utils/constant';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 
-class ManageRoom extends Component {
+class ManageEmployer extends Component {
 
 
     constructor(props) {
@@ -20,15 +20,15 @@ class ManageRoom extends Component {
         this.state = {
             contentMarkdown: '',
             contentHTML: '',
-            selectedRoom: '',
+            selectedEmployer: '',
             description: '',
-            listRooms: [],
+            listEmployers: [],
             hasOldData: false,
         }
     }
 
     componentDidMount() {
-        this.props.fetchAllRooms()
+        this.props.fetchAllEmployers()
     }
 
     buildDataInputSelect = (inputData) => {
@@ -36,7 +36,7 @@ class ManageRoom extends Component {
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {};
-                let labelName = `${item.firstName}`
+                let labelName = `${item.firstName} ${item.lastName}`
                 object.label = labelName;
                 object.value = item.id;
                 result.push(object)
@@ -47,10 +47,10 @@ class ManageRoom extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.allRooms !== this.props.allRooms) {
-            let dataSelect = this.buildDataInputSelect(this.props.allRooms)
+        if (prevProps.allEmployers !== this.props.allEmployers) {
+            let dataSelect = this.buildDataInputSelect(this.props.allEmployers)
             this.setState({
-                listRooms: dataSelect
+                listEmployers: dataSelect
             })
         }
     }
@@ -64,20 +64,20 @@ class ManageRoom extends Component {
 
     handleSaveContentMarkdown = () => {
         let { hasOldData } = this.state;
-        this.props.saveDetailRoom({
+        this.props.saveDetailEmployer({
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
             description: this.state.description,
-            roomId: this.state.selectedRoom.value,
+            employerId: this.state.selectedEmployer.value,
             action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
         })
         console.log('check state: ', this.state)
     }
 
-    handleChangeSelect = async (selectedRoom) => {
-        this.setState({ selectedRoom });
+    handleChangeSelect = async (selectedEmployer) => {
+        this.setState({ selectedEmployer });
 
-        let res = await getDetailInforRoom(selectedRoom.value);
+        let res = await getDetailInforEmployer(selectedEmployer.value);
         if (res && res.errCode === 0 && res.data.Markdown) {
             let markdown = res.data.Markdown;
             this.setState({
@@ -107,17 +107,17 @@ class ManageRoom extends Component {
     render() {
         let { hasOldData } = this.state
         return (
-            <div className='manage-room-container'>
-                <div className='manage-room-title'>
-                    create a new information of room
+            <div className='manage-employer-container'>
+                <div className='manage-employer-title'>
+                    create a new information of employer
                 </div>
                 <div className='more-infor'>
                     <div className='content-left form-group pb-3'>
-                        <label>Choose Room</label>
+                        <label>Choose employer</label>
                         <Select
-                            value={this.state.selectedRoom}
+                            value={this.state.selectedEmployer}
                             onChange={this.handleChangeSelect}
-                            options={this.state.listRooms}
+                            options={this.state.listEmployers}
                         />
                     </div>
                     <div className='content-right'>
@@ -131,7 +131,7 @@ class ManageRoom extends Component {
                         </textarea>
                     </div>
                 </div>
-                <div className='manage-room-editor'>
+                <div className='manage-employer-editor'>
                     <MdEditor
                         style={{ height: '500px' }}
                         renderHTML={text => mdParser.render(text)}
@@ -140,7 +140,7 @@ class ManageRoom extends Component {
                     />
                 </div>
                 <button
-                    className={hasOldData === true ? 'save-content-room' : 'create-content-room'}
+                    className={hasOldData === true ? 'save-content-employer' : 'create-content-employer'}
                     onClick={() => this.handleSaveContentMarkdown()}
                 >
                     {hasOldData === true ?
@@ -155,15 +155,15 @@ class ManageRoom extends Component {
 
 const mapStateToProps = state => {
     return {
-        allRooms: state.admin.allRooms
+        allEmployers: state.admin.allEmployers
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllRooms: (id) => dispatch(actions.fetchAllRooms()),
-        saveDetailRoom: (data) => dispatch(actions.saveDetailRoom(data))
+        fetchAllEmployers: () => dispatch(actions.fetchAllEmployers()),
+        saveDetailEmployer: (data) => dispatch(actions.saveDetailEmployer(data))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageRoom);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageEmployer);

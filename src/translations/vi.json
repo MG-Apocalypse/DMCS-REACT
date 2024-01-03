@@ -12,14 +12,28 @@
                 "header": "Tham số hệ thống"
             }
         },
+        "employer": {
+            "manage-schedule": "Quản lý kế hoạch nhận phòng"
+        },
         "admin": {
+            "info": "Thông tin",
+            "home": "Trang chủ",
             "manage-user": "Người dùng",
-            "manage-room-student": "Quản lý phòng sinh viên",
+            "manage-employer-student": "Quản lý phòng nhân viên ",
             "manage-admin": "Quản lý admin",
             "crud": "CRUD user",
             "crud-redux": "CRUD Redux",
-            "manage-room": "Quản lý phòng",
-            "room": "Phòng ở"
+            "manage-employer": "Quản lý nhân viên",
+            "employer": "Nhân viên",
+            "manage-room": "Quản lý nhận phòng",
+            "room": "Phòng ở",
+            "manage-schedule": "Quản lý kế hoạch nhận phòng"
         }
+    },
+    "manage-schedule": {
+        "title": "Quản lý kế hoạch nhận phòng của nhân viên",
+        "choose-employer": "Chọn nhân viên",
+        "choose-date": "Chọn ngày",
+        "save": "Lưu thông tin"
     }
 }

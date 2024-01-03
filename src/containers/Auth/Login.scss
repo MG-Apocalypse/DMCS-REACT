@@ -56,37 +56,20 @@
                 font-size: 12px;
             }
 
-            .social-login {
-                display: flex;
-                text-align: center;
-                justify-content: center;
+
+
+            .back-to-home {
                 margin-top: 10px;
+                text-align: center;
+                text-decoration: none;
 
-                .google {
-                    font-size: 30px;
-                    background: #c32424;
-                    border-radius: 50%;
-                    height: 50px;
-                    width: 50px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: white;
-                    margin-right: 10px;
+                .name-home {
+                    font-size: 18px;
+                    color: black;
                 }
 
-                .facebook {
-                    font-size: 30px;
-                    background: #307aaf;
-                    border-radius: 50%;
-                    height: 50px;
-                    width: 50px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: white;
-                }
             }
+
         }
     }
 }

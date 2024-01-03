@@ -2,11 +2,12 @@ export const path = {
     HOME: '/',
     HOMEPAGE: '/home',
     ROOMLIST: '/roomlist',
-    ROOMINFO: '/roominfo/:id',
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
-    DETAIL_ROOM: '/detail-room/:id'
+    DETAIL_EMPLOYER: '/detail-employer/:id',
+    PROFILE_INFORMATION: '/profile-information',
+    CONTACT: '/contact'
 };
 
 export const languages = {
@@ -28,4 +29,11 @@ export const dateFormat = {
 export const YesNoObj = {
     YES: 'Y',
     NO: 'N'
+}
+
+export const USER_ROLE = {
+    ADMIN: 'R1',
+    EMPLOYER: 'R2',
+    STUDENT: 'R3'
+
 }

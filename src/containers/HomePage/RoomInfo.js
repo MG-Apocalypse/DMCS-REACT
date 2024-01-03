@@ -131,7 +131,7 @@ class RoomInfo extends Component {
                                 <h1>Thông tin</h1>
                             </NavLink>
 
-                            <NavLink to="/about" activeClassName="active">
+                            <NavLink to="/contact" activeClassName="active">
                                 <h1>Liên Hệ</h1>
                             </NavLink>
                             <NavLink to="/roomlist" activeClassName="active">

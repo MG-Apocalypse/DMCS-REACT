@@ -5,9 +5,12 @@ import {
     getAllUsers,
     deleteUserService,
     editUserService,
-    getRoomStudentService,
-    getAllRooms,
-    saveDetailRoomService
+    getEmployerStudentService,
+    getAllEmployers,
+    saveDetailEmployerService,
+    createNewRoomService,
+    getAllRoomsService
+
 } from "../../services/userService";
 import { toast } from "react-toastify"
 
@@ -209,74 +212,165 @@ export const editUserFailed = () => ({
     type: actionTypes.EDIT_USER_FAILED
 })
 
-export const fetchRoomStudent = () => {
+export const fetchEmployerStudent = () => {
     return async (dispatch, getState) => {
         try {
-            let res = await getRoomStudentService('')
+            let res = await getEmployerStudentService('')
             if (res && res.errCode === 0) {
                 dispatch({
-                    type: actionTypes.FETCH_ROOMS_STUDENT_SUCCESS,
+                    type: actionTypes.FETCH_EMPLOYERS_STUDENT_SUCCESS,
+                    dataEmployer: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_EMPLOYERS_STUDENT_FAILED,
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_EMPLOYERS_STUDENT_FAILED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_EMPLOYERS_STUDENT_FAILED,
+            })
+        }
+    }
+}
+
+export const fetchAllEmployers = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllEmployers('')
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_EMPLOYERS_SUCCESS,
+                    dataRo: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_EMPLOYERS_FAILED,
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_ALL_EMPLOYERS_FAILED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_ALL_EMPLOYERS_FAILED,
+            })
+        }
+    }
+}
+
+export const saveDetailEmployer = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await saveDetailEmployerService(data)
+            if (res && res.errCode === 0) {
+                toast.success("Save infor detail employer succeed!")
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_EMPLOYER_SUCCESS,
+                    dataRo: res.data
+                })
+            } else {
+                toast.error("Save infor detail employer error!")
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_EMPLOYER_FAILED,
+                })
+            }
+        } catch (e) {
+            toast.error("Save infor detail employer error!")
+            console.log('SAVE_DETAIL_EMPLOYER_FAILED: ', e)
+            dispatch({
+                type: actionTypes.SAVE_DETAIL_EMPLOYER_FAILED,
+            })
+        }
+    }
+}
+
+export const fetchAllScheduleRoom = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService('ROOM')
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALLCODE_SCHEDULE_ROOM_SUCCESS,
                     dataRoom: res.data
                 })
             } else {
                 dispatch({
-                    type: actionTypes.FETCH_ROOMS_STUDENT_FAILED,
+                    type: actionTypes.FETCH_ALLCODE_SCHEDULE_ROOM_FAILED,
                 })
             }
         } catch (e) {
-            console.log('FETCH_ROOMS_STUDENT_FAILED: ', e)
+            console.log('FETCH_ALLCODE_SCHEDULE_ROOM_FAILED: ', e)
             dispatch({
-                type: actionTypes.FETCH_ROOMS_STUDENT_FAILED,
+                type: actionTypes.FETCH_ALLCODE_SCHEDULE_ROOM_FAILED,
             })
         }
     }
 }
 
-export const fetchAllRooms = () => {
-    return async (dispatch, getState) => {
-        try {
-            let res = await getAllRooms('')
-            if (res && res.errCode === 0) {
-                dispatch({
-                    type: actionTypes.FETCH_ALL_ROOMS_SUCCESS,
-                    dataRo: res.data
-                })
-            } else {
-                dispatch({
-                    type: actionTypes.FETCH_ALL_ROOMS_FAILED,
-                })
-            }
-        } catch (e) {
-            console.log('FETCH_ALL_ROOMS_FAILED: ', e)
-            dispatch({
-                type: actionTypes.FETCH_ALL_ROOMS_FAILED,
-            })
-        }
-    }
-}
 
-export const saveDetailRoom = (data) => {
+// UserRedux.js
+
+export const createNewRoom = (data) => {
     return async (dispatch, getState) => {
         try {
-            let res = await saveDetailRoomService(data)
+            // Provide default values if certain fields are not present
+            const { roomName, capacity, ...otherData } = data;
+            const newData = {
+                roomName: roomName || 'Default Room',
+                capacity: capacity || 10,
+                ...otherData,
+            };
+
+            let res = await createNewRoomService(newData);
+
             if (res && res.errCode === 0) {
-                toast.success("Save infor detail room succeed!")
-                dispatch({
-                    type: actionTypes.SAVE_DETAIL_ROOM_SUCCESS,
-                    dataRo: res.data
-                })
+                toast.success("Create a new room succeeded");
+                dispatch(createRoomSuccess());
+                dispatch(fetchAllRoomsStart());
             } else {
-                toast.error("Save infor detail room error!")
-                dispatch({
-                    type: actionTypes.SAVE_DETAIL_ROOM_FAILED,
-                })
+                dispatch(createRoomFailed());
             }
         } catch (e) {
-            toast.error("Save infor detail room error!")
-            console.log('SAVE_DETAIL_ROOM_FAILED: ', e)
-            dispatch({
-                type: actionTypes.SAVE_DETAIL_ROOM_FAILED,
-            })
+            dispatch(createRoomFailed());
+            console.log('createRoomFailed error', e);
         }
-    }
-}
+    };
+};
+
+const createRoomSuccess = () => ({
+    type: actionTypes.CREATE_ROOM_SUCCESS,
+});
+
+const createRoomFailed = () => ({
+    type: actionTypes.CREATE_ROOM_FAILED,
+});
+
+// roomAction.js
+
+
+export const fetchAllRoomsStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            // Assuming you have an appropriate API endpoint for fetching all rooms
+            const response = await getAllRoomsService();
+
+            if (response && response.errCode === 0) {
+                dispatch(fetchAllRoomsSuccess(response.rooms));
+            } else {
+                dispatch(fetchAllRoomsFailed());
+            }
+        } catch (error) {
+            console.error('Error fetching all rooms:', error);
+            dispatch(fetchAllRoomsFailed());
+        }
+    };
+};
+
+const fetchAllRoomsSuccess = (rooms) => ({
+    type: actionTypes.FETCH_ALL_ROOM_SUCCESS,
+    rooms,
+});
+
+const fetchAllRoomsFailed = () => ({
+    type: actionTypes.FETCH_ALL_ROOM_FAILED,
+});

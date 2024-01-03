@@ -37,6 +37,9 @@
             "system-parameter": {
                 "header": "System-parameter"
             }
+        },
+        "employer": {
+            "manage-schedule": "Manage Employer's schedule"
         }
     },
     "system": {
@@ -116,5 +119,8 @@
             "remove-assign-fail": "Fail to unassign service package to customer",
             "sure-delete-assign": "Are you sure to unassign service package to customer?"
         }
+    },
+    "manage-schedule": {
+        "title": "Manage employee check-in plans"
     }
 }

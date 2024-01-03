@@ -30,21 +30,50 @@ const getAllCodeService = (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`)
 }
 
-const getRoomStudentService = (limit) => {
-    return axios.get(`/api/room-student?limit=${limit}`)
+const getEmployerStudentService = (limit) => {
+    return axios.get(`/api/employer-student?limit=${limit}`)
 }
 
-const getAllRooms = () => {
-    return axios.get(`/api/get-all-rooms`)
+const getAllEmployers = () => {
+    return axios.get(`/api/get-all-employers`)
 }
 
-const saveDetailRoomService = (data) => {
-    return axios.post('/api/save-infor-rooms', data)
-
+const saveDetailEmployerService = (data) => {
+    return axios.post('/api/save-infor-employers', data)
 }
 
-const getDetailInforRoom = (inputId) => {
-    return axios.get(`/api/get-detail-room-by-id?id=${inputId}`)
+const getDetailInforEmployer = (inputId) => {
+    return axios.get(`/api/get-detail-employer-by-id?id=${inputId}`)
+}
+
+const saveBulkScheduleEmployer = (data) => {
+    return axios.post('/api/bulk-create-schedule', data)
+}
+
+const createNewRoomService = async (roomData) => {
+    try {
+        // Assuming you have an appropriate API endpoint for creating rooms
+        const response = await axios.post('/api/create-new-room', roomData);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating a new room:', error);
+        throw error;
+    }
+};
+
+const getAllRoomsService = async () => {
+    try {
+        // Assuming you have an appropriate API endpoint for fetching all rooms
+        const response = await axios.get('/api/get-all-rooms');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching all rooms:', error);
+        throw error;
+    }
+};
+
+const getScheduleEmployerByDate = (employerId, date) => {
+    return axios.get(`/api/get-schedule-employer-by-date?employerId=${employerId}&date=${date}`)
 }
 export {
     handleLoginApi,
@@ -53,8 +82,12 @@ export {
     deleteUserService,
     editUserService,
     getAllCodeService,
-    getRoomStudentService,
-    getAllRooms,
-    saveDetailRoomService,
-    getDetailInforRoom,
+    getEmployerStudentService,
+    getAllEmployers,
+    saveDetailEmployerService,
+    getDetailInforEmployer,
+    saveBulkScheduleEmployer,
+    createNewRoomService,
+    getAllRoomsService,
+    getScheduleEmployerByDate
 };

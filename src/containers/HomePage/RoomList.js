@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
 import "./RoomList.css";
 import HomeFooter from "./HomeFooter";
+import HomeHeader from "./HomeHeader";
 
 const roomsData = [
     {
@@ -76,31 +77,7 @@ function RoomList() {
 
     return (
         <React.Fragment>
-            <div className='home-header-container'>
-                <div className='home-header-content'>
-                    <div className='left-content'>
-                        <div className='logo'></div>
-                    </div>
-                    <div className='right-content'></div>
-                    <div className="topnav">
-                        <NavLink to="/user" activeClassName="active">
-                            <h1>Thông tin</h1>
-                        </NavLink>
-
-                        <NavLink to="/about" activeClassName="active">
-                            <h1>Liên Hệ</h1>
-                        </NavLink>
-                        <NavLink to="/roomlist" activeClassName="active">
-                            <h1>Đặt Phòng</h1>
-                        </NavLink>
-
-                        <NavLink to="/home" activeClassName="active" exact={true}>
-                            <h1>Trang Chủ</h1>
-                        </NavLink>
-
-                    </div>
-                </div>
-            </div>
+            <HomeHeader isShowBanner={true} />
             <div className='room-banner'>
                 <div className='room-content-up'>
                     <div className='search'>

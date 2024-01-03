@@ -4,7 +4,9 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
-import { handleLoginApi } from '../../services/userService'
+import { handleLoginApi } from '../../services/userService';
+import { Link, NavLink } from "react-router-dom";
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -56,6 +58,12 @@ class Login extends Component {
             isShowPassword: !this.state.isShowPassword
         })
     }
+
+    handleKeyDown = (event) => {
+        if (event.key === "Enter" || event.keyCode === 13) {
+            this.handleLogin();
+        }
+    }
     render() {
         return (
             <div className='login-background'>
@@ -68,7 +76,7 @@ class Login extends Component {
                                 type='text'
                                 className='form-control'
                                 placeholder='Enter your username'
-                                onChange={(event) => this.handleOnChangeUsername(event)}></input>
+                                onChange={(event) => this.handleOnChangeUsername(event)} />
                         </div>
                         <div className='col-12 form-group login-input'>
                             <label>Password:</label>
@@ -76,7 +84,9 @@ class Login extends Component {
                                 <input type={this.state.isShowPassword ? 'text' : 'password'}
                                     className='form-control'
                                     placeholder='Enter your password'
-                                    onChange={(event) => this.handleOnChangePassword(event)}></input>
+                                    onChange={(event) => this.handleOnChangePassword(event)}
+                                    onKeyDown={(event) => this.handleKeyDown(event)}
+                                />
                                 <span onClick={() => this.handleShowHidePassword()}>
                                     <i class={this.state.isShowPassword ? 'far fa-eye' : 'far fa-eye-slash'}></i></span>
                             </div>
@@ -93,11 +103,11 @@ class Login extends Component {
                             <span className='forgot-password'>Forgot your password?</span>
                         </div>
                         <div className='col-12 text-center mt-3'>
-                            <span className='text-other-login'>Or Login with</span>
+                            <span className='text-other-login'>Or </span>
                         </div>
-                        <div className='col-12 social-login'>
-                            <i class="fab fa-google-plus-g google"></i>
-                            <i class="fab fa-facebook-f facebook"></i>                        </div>
+                        <NavLink className="back-to-home" to="/home" activeClassName="active" exact={true}>
+                            <span className='name-home'>Home</span>
+                        </NavLink>
                     </div>
                 </div>
             </div>

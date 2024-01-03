@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
-import DetailRoom from './Student/Room/DetailRoom.js';
+import DetailEmployer from './Student/Employer/DetailEmployer.js';
 
 
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
@@ -21,6 +21,8 @@ import HomePage from './HomePage/HomePage.js';
 import RoomInfo from './HomePage/RoomInfo.js';
 import RoomList from './HomePage/RoomList.js';
 import CustomScrollbars from '../components/CustomScrollbars.js';
+import Employer from '../routes/Employer.js';
+import Contact from './HomePage/Contact.js';
 
 class App extends Component {
 
@@ -53,10 +55,14 @@ class App extends Component {
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
-                                    <Route path={path.HOMEPAGE} component={HomePage} />
+                                    <Route path={'/employer/'} component={userIsAuthenticated(Employer)} />
+                                    <Route path={path.HOMEPAGE} exact component={(HomePage)} />
                                     <Route path={path.ROOMLIST} component={RoomList} />
-                                    {/* <Route path="/roominfo/:id" component={RoomInfo} /> */}
-                                    <Route path={path.DETAIL_ROOM} component={DetailRoom} />
+                                    <Route path="/roominfo/:id" component={RoomInfo} />
+                                    <Route path={path.DETAIL_EMPLOYER} component={DetailEmployer} />
+                                    <Route path={path.CONTACT} component={Contact} />
+
+
 
                                 </Switch>
                             </CustomScrollbars>

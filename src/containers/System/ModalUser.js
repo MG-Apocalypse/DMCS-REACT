@@ -200,8 +200,8 @@ class ModalUser extends Component {
                                             onChange={(event) => this.handleOnChangeInput(event, 'roleId')}
                                         >
                                             <option value="1">Admin</option>
-                                            <option value="2">Doctor</option>
-                                            <option value="3">Patient</option>
+                                            <option value="2">Employer</option>
+                                            <option value="3">Student</option>
                                         </select>
                                     </div>
                                 </div>

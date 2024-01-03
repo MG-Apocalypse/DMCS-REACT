@@ -1,23 +1,24 @@
-.room-detail-container {
+.employer-detail-container {
     height: 500px;
-    margin: 0 100px;
 
-    .intro-room {
+    .intro-employer {
         display: flex;
+        margin: 0 100px;
+
 
         .content-left {
-            width: 30%;
+            width: 20%;
             height: 300px;
             background-color: #eee;
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
-            border-radius: 40%;
+            border-radius: 50%;
             margin: 20px 20px
         }
 
         .content-right {
-            width: 70%;
+            width: 80%;
             display: flex;
             flex-direction: column;
             padding-left: 10px;
@@ -35,9 +36,27 @@
         }
     }
 
-    .detail-infor-room {
+    .schedule-employer {
+        margin: 0 100px;
+        display: flex;
+        height: 200px;
+        border: 1px solid red;
+
+        .content-left {
+            width: 50%;
+        }
+
+        .content-right {
+            width: 50%;
+        }
+    }
+
+    .detail-infor-employer {
+        background-color: #eee;
         font-size: 20px;
-        padding: 30px 50px;
+        padding: 70px 100px;
         border: 1px solid black;
     }
+
+    .comment-employer {}
 }

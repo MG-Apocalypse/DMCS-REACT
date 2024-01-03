@@ -32,6 +32,11 @@ class Specialty extends Component {
         this.props.history.push(`/detail-employer/${employer.id}`)
     }
 
+    handleViewRoom() {
+        this.props.history.push(`/roomlist`)
+
+    }
+
     render() {
 
         let settings = {
@@ -49,8 +54,10 @@ class Specialty extends Component {
             <div className='section-specialty'>
                 <div className='specialty-container'>
                     <div className='specialty-header'>
-                        <span className='title-section'>Phòng ở sinh viên</span>
-                        <button className='btn-section'>xem thêm</button>
+                        <span className='title-section'>Danh sách nhân viên</span>
+                        <button className='btn-section'
+                            onClick={() => this.handleViewRoom()}
+                        >xem thêm</button>
                     </div>
                     <div className='specialty-body'>
                         <Slider {...settings}>

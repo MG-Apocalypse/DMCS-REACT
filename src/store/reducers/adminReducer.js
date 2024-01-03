@@ -6,8 +6,9 @@ const initialState = {
     roles: [],
     positions: [],
     users: [],
-    roomStudent: [],
-    allRooms: [],
+    employerStudent: [],
+    allEmployers: [],
+    allScheduleRoom: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -65,29 +66,66 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_ROOMS_STUDENT_SUCCESS:
-            state.roomStudent = action.dataRoom;
+        case actionTypes.FETCH_EMPLOYERS_STUDENT_SUCCESS:
+            state.employerStudent = action.dataEmployer;
             return {
                 ...state
             }
 
-        case actionTypes.FETCH_ROOMS_STUDENT_FAILED:
-            state.roomStudent = [];
+        case actionTypes.FETCH_EMPLOYERS_STUDENT_FAILED:
+            state.employerStudent = [];
             return {
                 ...state
             }
 
-        case actionTypes.FETCH_ALL_ROOMS_SUCCESS:
-            state.allRooms = action.dataRo;
+        case actionTypes.FETCH_ALL_EMPLOYERS_SUCCESS:
+            state.allEmployers = action.dataRo;
             return {
                 ...state
             }
 
-        case actionTypes.FETCH_ALL_ROOMS_FAILED:
-            state.allRooms = [];
+        case actionTypes.FETCH_ALL_EMPLOYERS_FAILED:
+            state.allEmployers = [];
             return {
                 ...state
             }
+
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_ROOM_SUCCESS:
+            state.allScheduleRoom = action.dataRoom;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_ROOM_FAILED:
+            state.allScheduleRoom = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALL_ROOM_SUCCESS:
+            return {
+                ...state,
+                rooms: action.rooms,
+                isLoadingRooms: false,
+            };
+
+        case actionTypes.FETCH_ALL_ROOM_FAILED:
+            return {
+                ...state,
+                isLoadingRooms: false,
+            };
+
+        case actionTypes.CREATE_ROOM_SUCCESS:
+            return {
+                ...state,
+                isLoadingRooms: false,
+            };
+
+        case actionTypes.CREATE_ROOM_FAILED:
+            return {
+                ...state,
+                isLoadingRooms: false,
+            };
         default:
             return state;
     }
