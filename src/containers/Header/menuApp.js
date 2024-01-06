@@ -9,7 +9,7 @@ export const adminMenu = [
             },
             // quản lý nhân viên
             {
-                name: 'menu.admin.manage-employer', link: '/system/user-employer',
+                name: 'menu.admin.manage-room', link: '/system/manage-room',
                 // subMenus: [
                 //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
                 //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
@@ -20,26 +20,17 @@ export const adminMenu = [
             //     name: 'menu.admin.manage-admin', link: '/system/user-admin',
             // },
             { //Quản lý kế hoạch phòng ở của nhâN viên
-                name: 'menu.employer.manage-schedule', link: '/employer/manage-schedule',
+                name: 'menu.room.manage-schedule', link: '/room/manage-schedule',
             },
             { //Quản lý kế hoạch phòng ở 
                 name: 'menu.admin.info', link: '/system/manage-info',
             },
         ]
     },
-    { //Quản lý nhân viên
-        name: 'menu.admin.employer', menus: [
-            {
-                name: 'menu.admin.manage-employer', link: '/system/manage-employer',
-            },
-
-
-        ]
-    },
     { //Quản lý phòng ở
-        name: 'menu.admin.room', menus: [
+        name: 'menu.admin.specialty', menus: [
             {
-                name: 'menu.admin.manage-room', link: '/system/manage-room',
+                name: 'menu.admin.manage-specialty', link: '/system/manage-specialty',
             },
 
         ]
@@ -48,11 +39,15 @@ export const adminMenu = [
 
 ];
 
-export const employerMenu = [
+export const roomMenu = [
     {
-        name: 'menu.admin.manage-user', menus: [
+        name: 'menu.admin.manage-user',
+        menus: [
             { //Quản lý kế hoạch phòng ở của nhân viên
-                name: 'menu.employer.manage-schedule', link: '/employer/manage-schedule',
+                name: 'menu.room.manage-schedule', link: '/room/manage-schedule',
+            },
+            { //Quản lý kế hoạch phòng ở của nhân viên
+                name: 'menu.room.manage-student', link: '/room/manage-student',
             },
         ]
 

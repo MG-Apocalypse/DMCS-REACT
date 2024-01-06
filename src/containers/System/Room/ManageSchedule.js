@@ -9,28 +9,28 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
 import { dateFormat } from '../../../utils';
-import { saveBulkScheduleEmployer } from '../../../services/userService';
+import { saveBulkScheduleRoom } from '../../../services/userService';
 class ManageSchedule extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listEmployers: [],
-            selectedEmployer: {},
+            listRooms: [],
+            selectedRoom: {},
             currentDate: '',
             rangeRoom: []
         }
     }
 
     componentDidMount() {
-        this.props.fetchAllEmployers();
+        this.props.fetchAllRooms();
         this.props.fetchAllScheduleRoom()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.allEmployers !== this.props.allEmployers) {
-            let dataSelect = this.buildDataInputSelect(this.props.allEmployers)
+        if (prevProps.allRooms !== this.props.allRooms) {
+            let dataSelect = this.buildDataInputSelect(this.props.allRooms)
             this.setState({
-                listEmployers: dataSelect
+                listRooms: dataSelect
             })
         }
         if (prevProps.allScheduleRoom !== this.props.allScheduleRoom) {
@@ -63,8 +63,9 @@ class ManageSchedule extends Component {
         }
     }
 
-    handleChangeSelect = async (selectedEmployer) => {
-        this.setState({ selectedEmployer });
+    handleChangeSelect = async (selectedRoom) => {
+        this.setState({ selectedRoom });
+        console.log('show room: ', selectedRoom)
 
     }
 
@@ -88,50 +89,53 @@ class ManageSchedule extends Component {
     }
 
     handleSaveSchedule = async () => {
-        let { rangeRoom, selectedEmployer, currentDate } = this.state;
+        let { rangeRoom, selectedRoom, currentDate } = this.state;
         let result = [];
+
         if (!currentDate) {
-            toast.error('invalid date!');
+            toast.error('Invalid date!');
             return;
         }
-        if (selectedEmployer && _.isEmpty(selectedEmployer)) {
-            toast.error('invalid selected employer!');
+
+        if (_.isEmpty(selectedRoom)) {
+            toast.error('Invalid selected room!');
             return;
         }
-        // let formattedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
-        // let formattedDate = moment(currentDate).unix()
+
         let formatedDate = new Date(currentDate).getTime();
 
         if (rangeRoom && rangeRoom.length > 0) {
-            let selectedRoom = rangeRoom.filter(item => item.isSelected === true)
-            if (selectedRoom && selectedRoom.length > 0) {
-                selectedRoom.map((schedule, index) => {
-                    console.log('check schedule: ', schedule, index, selectedEmployer)
+            let selectedRooms = rangeRoom.filter(item => item.isSelected === true);
+
+            if (selectedRooms && selectedRooms.length > 0) {
+                selectedRooms.map((schedule, index) => {
                     let object = {};
-                    object.employerId = selectedEmployer.value;
+                    object.roomId = selectedRoom.value;
                     object.date = formatedDate;
                     object.timeType = schedule.keyMap;
                     result.push(object);
-                })
+                });
             } else {
-                toast.error("Invalid selected room!")
+                toast.error("Invalid selected room!");
                 return;
             }
         }
 
-        let res = await saveBulkScheduleEmployer({
+        let res = await saveBulkScheduleRoom({
             arrSchedule: result,
-            employerId: selectedEmployer.value,
-            formatedDate: formatedDate
-        })
+            roomId: selectedRoom.value,
+            formatedDate: '' + formatedDate
+        });
 
         if (res && res.errCode === 0) {
-            toast.success('save saveBulkScheduleEmployer success')
+            toast.success('Save saveBulkScheduleRoom success');
         } else {
-            toast.error('error saveBulkScheduleEmployer')
+            toast.error('Error saveBulkScheduleRoom');
         }
 
+        console.log('Check result: ', result);
     }
+
 
     render() {
         let { rangeRoom } = this.state;
@@ -145,12 +149,12 @@ class ManageSchedule extends Component {
                 <div className='container'>
                     <div className='row'>
                         <div className='col-6 form-group'>
-                            <label><FormattedMessage id="manage-schedule.choose-employer" />
+                            <label><FormattedMessage id="manage-schedule.choose-room" />
                             </label>
                             <Select
-                                value={this.state.selectedEmployer}
+                                value={this.state.selectedRoom}
                                 onChange={this.handleChangeSelect}
-                                options={this.state.listEmployers}
+                                options={this.state.listRooms}
                             />                        </div>
                         <div className='col-6 form-group'>
                             <label><FormattedMessage id="manage-schedule.choose-date" /></label>
@@ -191,7 +195,7 @@ class ManageSchedule extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        allEmployers: state.admin.allEmployers,
+        allRooms: state.admin.allRooms,
         allScheduleRoom: state.admin.allScheduleRoom
 
     };
@@ -199,7 +203,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllEmployers: () => dispatch(actions.fetchAllEmployers()),
+        fetchAllRooms: () => dispatch(actions.fetchAllRooms()),
         fetchAllScheduleRoom: () => dispatch(actions.fetchAllScheduleRoom()),
     };
 };

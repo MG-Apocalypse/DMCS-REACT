@@ -30,23 +30,23 @@ const getAllCodeService = (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`)
 }
 
-const getEmployerStudentService = (limit) => {
-    return axios.get(`/api/employer-student?limit=${limit}`)
+const getRoomStudentService = (limit) => {
+    return axios.get(`/api/room-student?limit=${limit}`)
 }
 
-const getAllEmployers = () => {
-    return axios.get(`/api/get-all-employers`)
+const getAllRooms = () => {
+    return axios.get(`/api/get-all-rooms`)
 }
 
-const saveDetailEmployerService = (data) => {
-    return axios.post('/api/save-infor-employers', data)
+const saveDetailRoomService = (data) => {
+    return axios.post('/api/save-infor-rooms', data)
 }
 
-const getDetailInforEmployer = (inputId) => {
-    return axios.get(`/api/get-detail-employer-by-id?id=${inputId}`)
+const getDetailInforRoom = (inputId) => {
+    return axios.get(`/api/get-detail-room-by-id?id=${inputId}`)
 }
 
-const saveBulkScheduleEmployer = (data) => {
+const saveBulkScheduleRoom = (data) => {
     return axios.post('/api/bulk-create-schedule', data)
 }
 
@@ -72,9 +72,36 @@ const getAllRoomsService = async () => {
     }
 };
 
-const getScheduleEmployerByDate = (employerId, date) => {
-    return axios.get(`/api/get-schedule-employer-by-date?employerId=${employerId}&date=${date}`)
+const getScheduleRoomByDate = (roomId, date) => {
+    return axios.get(`/api/get-schedule-room-by-date?roomId=${roomId}&date=${date}`)
 }
+const getExtraInforRoomById = (roomId, date) => {
+    return axios.get(`/api/get-extra-infor-room-by-id?roomId=${roomId}`)
+}
+
+const getProfileRoomById = (roomId, date) => {
+    return axios.get(`/api/get-profile-room-by-id?roomId=${roomId}`)
+}
+
+const postStudentBookAppointment = (data) => {
+    return axios.post(`/api/student-book-appointment`, data)
+}
+
+const postVerifyBookAppointment = (data) => {
+    return axios.post(`/api/verify-book-appointment`, data)
+}
+const createNewSpecialty = (data) => {
+    return axios.post(`/api/create-new-specialty`, data)
+}
+
+const getAllSpecialty = (data) => {
+    return axios.get(`/api/get-specialty`)
+}
+
+const getAllDetailSpecialtyById = (data) => {
+    return axios.get(`/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`)
+}
+
 export {
     handleLoginApi,
     getAllUsers,
@@ -82,12 +109,19 @@ export {
     deleteUserService,
     editUserService,
     getAllCodeService,
-    getEmployerStudentService,
-    getAllEmployers,
-    saveDetailEmployerService,
-    getDetailInforEmployer,
-    saveBulkScheduleEmployer,
+    getRoomStudentService,
+    getAllRooms,
+    saveDetailRoomService,
+    getDetailInforRoom,
+    saveBulkScheduleRoom,
     createNewRoomService,
     getAllRoomsService,
-    getScheduleEmployerByDate
+    getScheduleRoomByDate,
+    getExtraInforRoomById,
+    getProfileRoomById,
+    postStudentBookAppointment,
+    postVerifyBookAppointment,
+    createNewSpecialty,
+    getAllSpecialty,
+    getAllDetailSpecialtyById
 };

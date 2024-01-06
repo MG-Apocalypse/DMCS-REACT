@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 
 import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
-import { adminMenu, employerMenu, studentMenu } from './menuApp';
+import { adminMenu, roomMenu, studentMenu } from './menuApp';
 import './Header.scss';
 import _ from 'lodash';
 import { USER_ROLE } from '../../utils';
@@ -24,8 +24,8 @@ class Header extends Component {
             let role = userInfo.roleId;
             if (role === USER_ROLE.ADMIN) {
                 menu = adminMenu;
-            } if (role === USER_ROLE.EMPLOYER) {
-                menu = employerMenu;
+            } if (role === USER_ROLE.ROOM) {
+                menu = roomMenu;
             }
             if (role === USER_ROLE.STUDENT) {
                 menu = studentMenu;

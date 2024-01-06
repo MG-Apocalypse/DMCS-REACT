@@ -1,71 +1,59 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Specialty.scss'
-import * as actions from "../../../store/actions"
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { withRouter } from "react-router"
+import { getAllSpecialty } from '../../../services/userService';
+import { withRouter } from 'react-router'
 
 class Specialty extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            arrEmployers: []
+            dataSpecialty: []
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.employerStudentRedux !== this.props.employerStudentRedux) {
+
+    }
+
+    async componentDidMount() {
+        let res = await getAllSpecialty();
+        if (res && res.errCode === 0) {
             this.setState({
-                arrEmployers: this.props.employerStudentRedux
+                dataSpecialty: res.data ? res.data : []
             })
         }
     }
 
-    componentDidMount() {
-        this.props.loadEmployerStudent();
-    }
-
-    handleViewDetailEmployer = (employer) => {
-        console.log(`check employer`, employer)
-        this.props.history.push(`/detail-employer/${employer.id}`)
+    handleViewDetailSpecialty = (item) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-specialty/${item.id}`)
+        }
     }
 
     render() {
-
-        let settings = {
-            dots: false,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-        }
-
-        let arrEmployers = this.state.arrEmployers;
-        arrEmployers = arrEmployers.concat(arrEmployers)
-
+        let { dataSpecialty } = this.state
         return (
-            <div className='section-specialty'>
-                <div className='specialty-container'>
+            <div className='section-share section-specialty'>
+                <div className='section-container'>
                     <div className='specialty-header'>
-                        <span className='title-section'>Phòng ở sinh viên</span>
+                        <span className='title-section'>Danh sách dịch vụ</span>
                         <button className='btn-section'>xem thêm</button>
                     </div>
                     <div className='specialty-body'>
-                        <Slider {...settings}>
-                            {arrEmployers && arrEmployers.length > 0
-                                && arrEmployers.map((item, index) => {
-                                    let imageBase64 = '';
-                                    if (item.image) {
-                                        imageBase64 = new Buffer(item.image, 'base64').toString('binary')
-                                    }
+                        <Slider {...this.props.settings}>
+                            {dataSpecialty && dataSpecialty.length > 0
+                                && dataSpecialty.map((item, index) => {
                                     return (
-                                        <div className='specialty-customize' key={index} onClick={() => this.handleViewDetailEmployer(item)}>
-                                            <div className='employer-image'
-                                                style={{ backgroundImage: `url(${imageBase64})` }}>
+                                        <div className='section-customize specialty-child' key={index}
+                                            onClick={() => this.handleViewDetailSpecialty(item)}
+                                        >
+                                            <div
+                                                className='bg-image section-specialty'
+                                                style={{ backgroundImage: `url(${item.image})` }}>
                                             </div>
-                                            <div className='title-employer'>{item.firstName} {item.lastName}</div>
+                                            <div className='specialty-name'>{item.name}</div>
                                         </div>
                                     )
                                 })}
@@ -79,14 +67,11 @@ class Specialty extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn,
-        employerStudentRedux: state.admin.employerStudent
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadEmployerStudent: () => dispatch(actions.fetchEmployerStudent())
     };
 };
 

@@ -1,40 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Specialty.scss'
+import './RoomInforList.scss'
 import * as actions from "../../../store/actions"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { withRouter } from "react-router"
 
-class Specialty extends Component {
+class RoomInforList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            arrEmployers: []
+            arrRooms: []
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.employerStudentRedux !== this.props.employerStudentRedux) {
+        if (prevProps.roomStudentRedux !== this.props.roomStudentRedux) {
             this.setState({
-                arrEmployers: this.props.employerStudentRedux
+                arrRooms: this.props.roomStudentRedux
             })
         }
     }
 
     componentDidMount() {
-        this.props.loadEmployerStudent();
+        this.props.loadRoomStudent();
     }
 
-    handleViewDetailEmployer = (employer) => {
-        console.log(`check employer`, employer)
-        this.props.history.push(`/detail-employer/${employer.id}`)
-    }
-
-    handleViewRoom() {
-        this.props.history.push(`/roomlist`)
-
+    handleViewDetailRoom = (room) => {
+        console.log(`check room`, room)
+        this.props.history.push(`/detail-room/${room.id}`)
     }
 
     render() {
@@ -47,32 +42,30 @@ class Specialty extends Component {
             slidesToScroll: 1,
         }
 
-        let arrEmployers = this.state.arrEmployers;
-        arrEmployers = arrEmployers.concat(arrEmployers)
+        let arrRooms = this.state.arrRooms;
+        arrRooms = arrRooms.concat(arrRooms)
 
         return (
             <div className='section-specialty'>
                 <div className='specialty-container'>
                     <div className='specialty-header'>
-                        <span className='title-section'>Danh sách nhân viên</span>
-                        <button className='btn-section'
-                            onClick={() => this.handleViewRoom()}
-                        >xem thêm</button>
+                        <span className='title-section'>Phòng ở sinh viên</span>
+                        <button className='btn-section'>xem thêm</button>
                     </div>
                     <div className='specialty-body'>
                         <Slider {...settings}>
-                            {arrEmployers && arrEmployers.length > 0
-                                && arrEmployers.map((item, index) => {
+                            {arrRooms && arrRooms.length > 0
+                                && arrRooms.map((item, index) => {
                                     let imageBase64 = '';
                                     if (item.image) {
                                         imageBase64 = new Buffer(item.image, 'base64').toString('binary')
                                     }
                                     return (
-                                        <div className='specialty-customize' key={index} onClick={() => this.handleViewDetailEmployer(item)}>
-                                            <div className='employer-image'
+                                        <div className='specialty-customize' key={index} onClick={() => this.handleViewDetailRoom(item)}>
+                                            <div className='room-image'
                                                 style={{ backgroundImage: `url(${imageBase64})` }}>
                                             </div>
-                                            <div className='title-employer'>{item.firstName} {item.lastName}</div>
+                                            <div className='title-room'>{item.firstName} {item.lastName}</div>
                                         </div>
                                     )
                                 })}
@@ -87,14 +80,14 @@ class Specialty extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        employerStudentRedux: state.admin.employerStudent
+        roomStudentRedux: state.admin.roomStudent
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadEmployerStudent: () => dispatch(actions.fetchEmployerStudent())
+        loadRoomStudent: () => dispatch(actions.fetchRoomStudent())
     };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RoomInforList));

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
-import ManageSchedule from '../containers/System/Employer/ManageSchedule';
+import ManageSchedule from '../containers/System/Room/ManageSchedule';
 import Header from '../containers/Header/Header';
-class Employer extends Component {
+import ManageStudent from '../containers/System/Room/ManageStudent';
+class Room extends Component {
     render() {
 
 
@@ -14,7 +15,9 @@ class Employer extends Component {
                 <div className="system-container">
                     <div className="system-list">
                         <Switch>
-                            <Route path="/employer/manage-schedule" component={ManageSchedule} />
+                            <Route path="/room/manage-schedule" component={ManageSchedule} />
+                            <Route path="/room/manage-student" component={ManageStudent} />
+
                         </Switch>
                     </div>
                 </div>
@@ -35,4 +38,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Employer);
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

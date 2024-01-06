@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
-import DetailEmployer from './Student/Employer/DetailEmployer.js';
+import DetailRoom from './Student/Room/DetailRoom.js';
 
 
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
@@ -19,10 +19,11 @@ import System from '../routes/System';
 import { CustomToastCloseButton } from '../components/CustomToast';
 import HomePage from './HomePage/HomePage.js';
 import RoomInfo from './HomePage/RoomInfo.js';
-import RoomList from './HomePage/RoomList.js';
 import CustomScrollbars from '../components/CustomScrollbars.js';
-import Employer from '../routes/Employer.js';
+import Room from '../routes/Room.js';
 import Contact from './HomePage/Contact.js';
+import VerifyEmail from './Student/VerifyEmail.js';
+import DetailSpecialty from './Student/Specialty/DetailSpecialty.js';
 
 class App extends Component {
 
@@ -55,15 +56,14 @@ class App extends Component {
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
-                                    <Route path={'/employer/'} component={userIsAuthenticated(Employer)} />
+                                    <Route path={'/room/'} component={userIsAuthenticated(Room)} />
                                     <Route path={path.HOMEPAGE} exact component={(HomePage)} />
-                                    <Route path={path.ROOMLIST} component={RoomList} />
                                     <Route path="/roominfo/:id" component={RoomInfo} />
-                                    <Route path={path.DETAIL_EMPLOYER} component={DetailEmployer} />
+                                    <Route path={path.DETAIL_ROOM} component={DetailRoom} />
+                                    <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
+
                                     <Route path={path.CONTACT} component={Contact} />
-
-
-
+                                    <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
                                 </Switch>
                             </CustomScrollbars>
                         </div>

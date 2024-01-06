@@ -1,0 +1,79 @@
+.room-extra-infor-container {
+    padding-left: 15px;
+
+    .content-up {
+        text-align: left;
+
+        .text-zip {
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .name-room {
+            padding: 5px 0;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .detail-zip {
+            font-weight: 600;
+            color: #333;
+        }
+    }
+
+    .content-down {
+        text-align: left;
+
+        .short-infor {
+            margin-top: 10px;
+
+            .detail {
+                cursor: pointer;
+                color: rgb(39, 165, 204)
+            }
+
+            .currency {
+                margin: 0 5px;
+            }
+        }
+
+        .title-price {
+            margin-bottom: 10px;
+        }
+
+        .detail-infor {
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            background-color: #f8f8f8;
+
+            .price-room {
+                padding-bottom: 5px;
+
+
+                .right {
+                    float: right;
+                }
+
+                .left {}
+            }
+
+            .note {}
+        }
+
+        .payment {
+            border: 1px solid #ddd;
+            padding: 5px;
+            background-color: #eee;
+        }
+
+        .hide-price {
+            margin-top: 10px;
+
+            span {
+                cursor: pointer;
+                color: rgb(39, 165, 204)
+            }
+        }
+    }
+}

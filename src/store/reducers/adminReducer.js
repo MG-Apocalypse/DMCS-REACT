@@ -6,9 +6,11 @@ const initialState = {
     roles: [],
     positions: [],
     users: [],
-    employerStudent: [],
-    allEmployers: [],
-    allScheduleRoom: []
+    roomStudent: [],
+    allRooms: [],
+    allScheduleRoom: [],
+
+    allRequiredRoomInfor: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -66,26 +68,26 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_EMPLOYERS_STUDENT_SUCCESS:
-            state.employerStudent = action.dataEmployer;
+        case actionTypes.FETCH_ROOMS_STUDENT_SUCCESS:
+            state.roomStudent = action.dataRoom;
             return {
                 ...state
             }
 
-        case actionTypes.FETCH_EMPLOYERS_STUDENT_FAILED:
-            state.employerStudent = [];
+        case actionTypes.FETCH_ROOMS_STUDENT_FAILED:
+            state.roomStudent = [];
             return {
                 ...state
             }
 
-        case actionTypes.FETCH_ALL_EMPLOYERS_SUCCESS:
-            state.allEmployers = action.dataRo;
+        case actionTypes.FETCH_ALL_ROOMS_SUCCESS:
+            state.allRooms = action.dataRo;
             return {
                 ...state
             }
 
-        case actionTypes.FETCH_ALL_EMPLOYERS_FAILED:
-            state.allEmployers = [];
+        case actionTypes.FETCH_ALL_ROOMS_FAILED:
+            state.allRooms = [];
             return {
                 ...state
             }
@@ -128,7 +130,24 @@ const adminReducer = (state = initialState, action) => {
             };
         default:
             return state;
+
+        case actionTypes.FETCH_REQUIRED_ROOM_INFOR_SUCCESS:
+            state.allRequiredRoomInfor = action.data;
+            console.log('>>> apocalypse: fetch required room data actions: ', action)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_REQUIRED_ROOM_INFOR_FAILED:
+            state.allRequiredRoomInfor = [];
+            return {
+                ...state
+            }
     }
+
+
+
+
 }
 
 export default adminReducer;

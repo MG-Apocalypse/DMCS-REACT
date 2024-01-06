@@ -1,20 +1,20 @@
-.employer-detail-container {
+.room-detail-container {
     height: 500px;
 
-    .intro-employer {
+    .intro-room {
         display: flex;
         margin: 0 100px;
 
 
         .content-left {
             width: 20%;
-            height: 300px;
+            height: 200px;
             background-color: #eee;
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
             border-radius: 50%;
-            margin: 20px 20px
+            margin: 20px 20px;
         }
 
         .content-right {
@@ -36,11 +36,11 @@
         }
     }
 
-    .schedule-employer {
+    .schedule-room {
         margin: 0 100px;
         display: flex;
-        height: 200px;
-        border: 1px solid red;
+        padding: 10px 0;
+        min-height: 150px;
 
         .content-left {
             width: 50%;
@@ -51,12 +51,12 @@
         }
     }
 
-    .detail-infor-employer {
+    .detail-infor-room {
         background-color: #eee;
         font-size: 20px;
         padding: 70px 100px;
         border: 1px solid black;
     }
 
-    .comment-employer {}
+    .comment-room {}
 }

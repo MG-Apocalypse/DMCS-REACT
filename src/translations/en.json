@@ -38,8 +38,8 @@
                 "header": "System-parameter"
             }
         },
-        "employer": {
-            "manage-schedule": "Manage Employer's schedule"
+        "room": {
+            "manage-schedule": "Manage Room's schedule"
         }
     },
     "system": {
@@ -121,6 +121,17 @@
         }
     },
     "manage-schedule": {
-        "title": "Manage employee check-in plans"
+        "title": "Manage room check-in plans"
+    },
+    "student": {
+        "detail-room": {
+            "schedule": "schedule",
+            "no schedule": "Beds are full !!"
+        }
+    },
+    "admin": {
+        "manage-room": {
+            "title": "Create more information room"
+        }
     }
 }

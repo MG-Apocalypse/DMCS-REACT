@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
-import './DetailEmployer.scss'
-import { getDetailInforEmployer } from '../../../services/userService'
-import EmployerSchedule from './EmployerSchedule';
-class DetailEmployer extends Component {
+import './DetailRoom.scss'
+import { getDetailInforRoom } from '../../../services/userService'
+import RoomSchedule from './RoomSchedule';
+import RoomExtraInfor from './RoomExtraInfor';
+class DetailRoom extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            detailEmployer: {}
+            detailRoom: {}
         }
     }
 
     async componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
-            let res = await getDetailInforEmployer(id);
+            let res = await getDetailInforRoom(id);
             if (res && res.errCode === 0) {
                 this.setState({
-                    detailEmployer: res.data
+                    detailRoom: res.data
                 })
 
             }
@@ -33,26 +34,26 @@ class DetailEmployer extends Component {
 
     render() {
         console.log(`state: `, this.state)
-        let { detailEmployer } = this.state;
+        let { detailRoom } = this.state;
         return (
             <React.Fragment>
                 <HomeHeader
                     isShowBanner={true}
                 />
-                <div className='employer-detail-container'>
-                    <div className='intro-employer'>
+                <div className='room-detail-container'>
+                    <div className='intro-room'>
                         <div className='content-left'
-                            style={{ backgroundImage: `url(${detailEmployer.image})` }}>
+                            style={{ backgroundImage: `url(${detailRoom.image})` }}>
 
                         </div>
                         <div className='content-right'>
                             <div className='up'>
-                                {detailEmployer.firstName} {detailEmployer.lastName}
+                                {detailRoom.firstName} {detailRoom.lastName}
                             </div>
                             <div className='down'>
-                                {detailEmployer && detailEmployer.Markdown && detailEmployer.Markdown.description &&
+                                {detailRoom && detailRoom.Markdown && detailRoom.Markdown.description &&
                                     <span>
-                                        {detailEmployer.Markdown.description}
+                                        {detailRoom.Markdown.description}
                                     </span>
 
                                 }
@@ -60,22 +61,24 @@ class DetailEmployer extends Component {
                         </div>
 
                     </div>
-                    <div className='schedule-employer'>
+                    <div className='schedule-room'>
                         <div className='content-left'>
-                            <EmployerSchedule
-                                employerIdFromParent={detailEmployer && detailEmployer.id ? detailEmployer.id : -1}
+                            <RoomSchedule
+                                roomIdFromParent={detailRoom && detailRoom.id ? detailRoom.id : -1}
                             />
                         </div>
-                        <div className='content-right'></div>
+                        <div className='content-right'><RoomExtraInfor
+                            roomIdFromParent={detailRoom && detailRoom.id ? detailRoom.id : -1}
+                        /></div>
 
                     </div>
-                    <div className='detail-infor-employer'>
-                        {detailEmployer && detailEmployer.Markdown && detailEmployer.Markdown.contentHTML &&
-                            <div dangerouslySetInnerHTML={{ __html: detailEmployer.Markdown.contentHTML }}>
+                    <div className='detail-infor-room'>
+                        {detailRoom && detailRoom.Markdown && detailRoom.Markdown.contentHTML &&
+                            <div dangerouslySetInnerHTML={{ __html: detailRoom.Markdown.contentHTML }}>
                             </div>
                         }
                     </div>
-                    <div className='comment-employer'>
+                    <div className='comment-room'>
 
                     </div>
                 </div>
@@ -94,4 +97,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailEmployer);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailRoom);

@@ -4,8 +4,8 @@ import HomeHeader from './HomeHeader';
 import Specialty from './Section/Specialty';
 import About from './Section/About';
 import HomeFooter from './HomeFooter';
-import EmployerList from './Section/EmployerList';
 import HomeBanner from './HomeBanner';
+import RoomInforList from './Section/RoomInforList';
 class HomePage extends Component {
 
     render() {
@@ -16,7 +16,7 @@ class HomePage extends Component {
             <div className='main'>
                 <HomeHeader isShowBanner={true} />
                 <HomeBanner />
-                <EmployerList />
+                <RoomInforList />
                 <Specialty />
                 <About />
                 <HomeFooter />

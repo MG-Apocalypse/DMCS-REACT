@@ -3,7 +3,7 @@
     margin: 0 100px;
     margin-top: 50px;
 
-    .specialty-container {
+    .section-container {
         margin-left: 5px;
         display: flex;
         flex-direction: column;
@@ -35,27 +35,31 @@
         }
 
         .specialty-body {
+            // width: 419px !important;
+            // height: 257px !important;
 
-            .title-employer {
-                text-align: center;
-                font-size: large;
-                width: 400px;
-            }
+            .section-customize {
+                width: 419px !important;
+                height: 257px !important;
 
-            .specialty-customize {
-                padding: 10px;
-                cursor: pointer;
-
-                .employer-image {
+                .section-specialty {
                     width: 400px;
                     height: 200px;
-                    // background: url(../../../assets/Specialty/2.jpg);
                     background-color: #eee;
                     background-repeat: no-repeat;
                     background-position: center center;
                     background-size: cover;
+                    margin: 0;
                 }
+
+                .specialty-name {
+                    font-size: 20px;
+                    margin: 0;
+
+                }
+
             }
+
 
             .slick-next {
                 right: -20px !important;
@@ -92,4 +96,8 @@
             }
         }
     }
+
+
+
+
 }

@@ -5,9 +5,11 @@ export const path = {
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
-    DETAIL_EMPLOYER: '/detail-employer/:id',
-    PROFILE_INFORMATION: '/profile-information',
-    CONTACT: '/contact'
+    DETAIL_ROOM: '/detail-room/:id',
+    DETAIL_SPECIALTY: '/detail-specialty/:id',
+    CONTACT: '/contact',
+    VERIFY_EMAIL_BOOKING: '/verify-booking'
+
 };
 
 export const languages = {
@@ -33,7 +35,7 @@ export const YesNoObj = {
 
 export const USER_ROLE = {
     ADMIN: 'R1',
-    EMPLOYER: 'R2',
+    ROOM: 'R2',
     STUDENT: 'R3'
 
 }
